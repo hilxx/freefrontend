@@ -18,7 +18,7 @@ sub, sup {
 
 sub {
   font-size: 36px;
-  animation: flash 2s infinte;
+  animation: flash 2s infinite;
 }
 
 @keyframes flash {
