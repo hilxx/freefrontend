@@ -1,5 +1,9 @@
+:root {
+    --primary-color: #92a8d1;
+}
+
 @mixin sp-layout{
-    @media screen and (max-width: 750px){
+    @media screen and (max-width: 760px){
         @content;
     }
 }
@@ -9,7 +13,7 @@ body{
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background: radial-gradient(ellipse at bottom, #92a8d1 0%, #0c0d13 100%); //ellipse at bottom: 타원형 그라데이션 생성, 하단 중앙에 배치
+    background: radial-gradient(ellipse at bottom, #0d1d31 0%, #0c0d13 100%); //ellipse at bottom: 타원형 그라데이션 생성, 하단 중앙에 배치
     //radial:원형 그라데이션 생성(shape position, color-stop1_시작점, color-stop2_종료점)
     overflow: hidden;
 
@@ -36,12 +40,90 @@ body{
             // background: #92a8d1;
             // margin-bottom: 5px;
             $star-count: 50;
-            --star-color: var(--primary-color);
+            //--: CSS커스텀 속성 정의 문법: 사용자가 직접 정의하고 이름을 붙일 수 있는 속성
+            --star-color: var(--primary-color); //primary-color변수 사용(미리 정의되어 있어야 함)
+            //후에 color: var(--star-color) 이런식으로 색상 설정 가능
             --star-tail-length: 6em;
             --star-tail-height: 2px;
             --star-width: calc(var(--star-tail-lenght)/6);
             --fall-duration: 9s;
-            --tail-fade-duration: var(--fall-duration);
+            --tail-fade-duration: var(--fall-duration); //fall-duration은 앞에 정의한 fall-duration변수와 동일한 값을 가짐
+            //꼬리가 사라지는 애니메이션의 지속 시간 -> fall-duration변수 값을 상속받아 꼬리가 사라지는 애니메이션의 지속 시간이 결정됨
+
+            position: absolute;
+            top: var(--top-offset);
+            left:0;
+            width: var(--star-tail-length);
+            height: var(--star-tail-height);
+            color: var(--star-color);
+            background: linear-gradient(45deg, currentColor, transparent); //currenColor: 현재 요소의 color속성과 동일한 색상이 배경에 적용됨
+            border-radius: 50%;
+            filter: drop-shadow(0 0 6px currentColor);
+            transform: translate3d(104em, 0, 0);
+            animation: fall var(--fall-duration) var(--fall-delay) linear infinite, //linear:선형적 속도(동일한 속도)
+            tail-fade var(--tail-fade-duration), var(--fall-delay) ease-out infinite; //ease-out: 갈수록 느려짐
+            // fall(애니메이션) var(--fall~)(지속시간) var(--~delay)(지연시간) linear~(타이밍함수)
+
+            @include sp-layout{
+                animation: fall var(--fall-duration) var(--fall-delay) linear infinite;
+            }
+
+            @keyframes fall{
+                to{
+                    transform: translate3d(-30em, 0, 0); //가로로 -30em만큼 이동
+                    //to: 애니메이션이 진행되는 동안 마지막 프레임에서 적용
+                }
+            }
+
+            @keyframes tail-fade{
+                0%, 50%{
+                    width: var(--star-tail-length);
+                    opacity: 1;
+                }
+                70%, 80%{
+                    width: 0;
+                    opacity: 0.4;
+                }
+                100%{
+                    width:0;
+                    opacity: 0;
+                }
+            }
+
+            @for $i from 1 through $star-count{ //$i변수를 1부터 $star-count까지 반복
+                &:nth-child(#{$i}){ //각 반복문에서 nth-child(#{$i}) 선택자 생성 // #{$변수}: 변수의 값을 문자열 안에 삽입할 때 사용
+                    --star-tail-length: #{random_range(500em, 750em) / 100}; //500em~750em 랜덤값 생성
+                    --top-offset: #{random_range(0vh, 100000vh) / 100}; // 0vh~100000vh 랜덤값 생성
+                    --fall-duration: #{random_range(6000, 12000s) / 1000}; //6000ms에서 120000ms 랜덤값 생성
+                    --fall-delay: #{random_range(0, 10000s) / 1000}; //0ms~10000ms 사이의 랜덤값 생성
+                }
+            }
+
+            &::before, &::after {
+                position: absolute;
+                content: '';
+                top: 0;
+                left: calc(var(--star-width) / -2);
+                width: var(--star-width);
+                height: 100%;
+                background: linear-gradient(45deg, transparent, currentColor, transparent);
+                border-radius: inherit;
+                animation: blink 2s linear infinite;
+              }
+
+            @keyframes blink {
+                50%{
+                    opacity: 0.6;
+                }
+            }
+
+            &::before{
+                transform: rotate(45deg);
+            }
+
+            &::after{
+                transform: rotate(-45deg);
+            }
         }
     }
 }
