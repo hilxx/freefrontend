@@ -1,0 +1,47 @@
+@mixin sp-layout{
+    @media screen and (max-width: 750px){
+        @content;
+    }
+}
+
+body{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: radial-gradient(ellipse at bottom, #92a8d1 0%, #0c0d13 100%); //ellipse at bottom: 타원형 그라데이션 생성, 하단 중앙에 배치
+    //radial:원형 그라데이션 생성(shape position, color-stop1_시작점, color-stop2_종료점)
+    overflow: hidden;
+
+    @function random_range($min, $max){ //변수random_range에 밑의 수식을 사용하여 min max 사이의 임의의 정수값 계산
+        $rand: random(); //$rand변수에 random내장 함수를 사용(0~1사이의 임의의 소수값 할당)
+        $random_range: $min + floor($rand * (($max - $min) + 1));
+        //$min부터 $max까지의 값을 가지는 임의의 소수값을 생성 -> rand * ((max - min) + 1)
+        //floor -> 소수점 이하를 버리고 남은 정수값
+        //=> 임의의 정수값 얻음
+        @return $random_range; //return하여 $random_range값을 반환
+    }
+
+    .stars{
+        position:fixed;
+        top:0;
+        left:0;
+        width:100%;
+        height: 120%; //요소가 화면에 가득 차더라도 잘리지 않고 그대로 나타남/시각적 효과
+        transform: rotate(-45deg);
+
+        .star{
+            // width:10px;
+            // height:10px;
+            // background: #92a8d1;
+            // margin-bottom: 5px;
+            $star-count: 50;
+            --star-color: var(--primary-color);
+            --star-tail-length: 6em;
+            --star-tail-height: 2px;
+            --star-width: calc(var(--star-tail-lenght)/6);
+            --fall-duration: 9s;
+            --tail-fade-duration: var(--fall-duration);
+        }
+    }
+}
