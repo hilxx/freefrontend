@@ -15,7 +15,7 @@ body{
     min-height: 100vh;
     background: radial-gradient(ellipse at bottom, #0d1d31 0%, #0c0d13 100%); //ellipse at bottom: 타원형 그라데이션 생성, 하단 중앙에 배치
     //radial:원형 그라데이션 생성(shape position, color-stop1_시작점, color-stop2_종료점)
-    overflow: hidden;
+    // overflow: hidden;
 }
 
     @function random_range($min, $max) { //변수random_range에 밑의 수식을 사용하여 min max 사이의 임의의 정수값 계산
