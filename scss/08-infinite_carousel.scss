@@ -31,14 +31,17 @@ body {
         }
 
         &.active {
+            //모든 item들에게 opacity=0을 주고, 가운데 오는 active를 1로 줘서 보이게 함
             opacity: 1;
             z-index: 99;
             box-shadow: 0 0 105px -35px rgba(0, 0, 0, 0.75);
         }
 
         &.prev {
+            //prev와 next는 active 양 옆에 보이게 z-index:2;를 줌
             z-index: 2;
             opacity: 0.25;
+            //translate로 위치 잡아줌
             transform: translate(-125%, -50%);
         }
 
