@@ -14,11 +14,11 @@ document.addEventListener("DOMContentLoaded", function(){
             //i==0(leftBtn) -> gotoPrev = 슬라이드가 왼쪽으로 한 칸씩 이동
             //i==1(rightBtn) -> gotoNext = 슬라이드가 오른쪽으로 한 칸씩 이동
         }
-
+                                                    //gotoNum(number)
         const gotoPrev = () => current > 0 ? gotoNum(current - 1) : gotoNum(slides.length - 1);
-        // current가 0보다 클 때(1,2,3,4 => )
+        // current가 0보다 클 때(1,2,3,4 => true일 때 gotoNum(current-1) : false일 때 gotoNum(5-1 = 4);)
         const gotoNext = () => current < 4 ? gotoNum(current + 1) : gotoNum(0);
-        // current가 4보다 작을 때(0,1,2,3 => )
+        // current가 4보다 작을 때(0,1,2,3 => true일 때 gotoNum(current+1) : false일 때 gotoNum(0);)
 
         const gotoNum = number => {
             //구버전 function gotoNum(number) {}
@@ -32,6 +32,7 @@ document.addEventListener("DOMContentLoaded", function(){
                 slides[i].classList.remove("active");
                 slides[i].classList.remove("prev");
                 slides[i].classList.remove("next");
+                //slides가 0번~4번일 때, active,prev,next가 지워지게 해라 = 뒤에 안 보이는 item이 되어라
             }
 
             if (next == 5) {
