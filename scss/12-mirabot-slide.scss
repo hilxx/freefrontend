@@ -1,7 +1,8 @@
 body {
     margin: 0;
     padding: 0;
-    overflow: hidden;
+    // overflow: hidden;
+    overflow-x: hidden;
 }
 
 .items {
@@ -9,21 +10,23 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    user-select: none;
+    //user-select: none;
 
     .item {
         position: absolute;
-        top: 50%;
+        //top: 50%;
         left: 50%;
-        transform: translate(-50%, -50%);
+       // transform: translate(-50%, -50%);
         width: 250px;
         height: 250px;
         border-radius: 50%;
-        overflow: hidden;
-        transition: all 300ms ease-in-out;
-        z-index: -1;
-        opacity: 0;
-        pointer-events: none;
+        //overflow: hidden;
+        //transition: all 300ms ease-in-out;
+        //z-index: -1;
+        //opacity: 0;
+        opacity: .25;
+        margin-left: -100px;
+        transition: transform 1s, opacity 1s;
 
         img {
             width: 100%;
@@ -34,24 +37,40 @@ body {
         &.active {
             //모든 item들에게 opacity=0을 주고, 가운데 오는 active를 1로 줘서 보이게 함
             opacity: 1;
-            z-index: 99;
+            //z-index: 99;
             box-shadow: 0 0 105px -35px rgba(0, 0, 0, 0.75);
         }
 
         &.prev {
             //prev와 next는 active 양 옆에 보이게 z-index:2;를 줌
-            z-index: 2;
-            opacity: 0.25;
+            //z-index: 2;
+            //opacity: 0.25;
             //translate로 위치 잡아줌
-            transform: translate(-125%, -50%);
+            //transform: translate(-125%, -50%);
+            cursor: pointer;
+            transform: translateX(-220px);
         }
 
         &.next {
             z-index: 2;
             opacity: 0.25;
-            transform: translate(25%, -50%);
+            //transform: translate(25%, -50%);
+            cursor: pointer;
+            transform: translateX(220px);
         }
     }
+
+    .swipe {
+        width: 270px;
+        height: 200px;
+        position: absolute;
+        background-color: green;
+        border-radius: 2px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        opacity: 0;
+      }
 
     .button-container {
         position: absolute;
