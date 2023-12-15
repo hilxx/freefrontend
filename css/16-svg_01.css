@@ -1,0 +1,20 @@
+body {
+  display: grid;
+  place-items: center;
+  min-height: 100vh;
+}
+body svg {
+  width: 240px;
+  height: 240px;
+  background: rgb(248, 223, 227);
+  border-radius: 50%;
+}
+body circle {
+  fill: skyblue;
+  fill-opacity: 0.5;
+  stroke: skyblue;
+}
+body path {
+  stroke: skyblue;
+  stroke-width: 3;
+}
